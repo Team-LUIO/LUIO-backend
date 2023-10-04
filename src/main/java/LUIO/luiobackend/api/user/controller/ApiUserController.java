@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api")
 public class ApiUserController {
 
     private final ApiUserService apiUserService;
@@ -21,8 +22,6 @@ public class ApiUserController {
         apiUserService.createUser(userDto);
 
         return ResponseEntity.ok("ok");
-
-        //test
     }
 
 
