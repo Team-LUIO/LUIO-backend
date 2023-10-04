@@ -21,6 +21,8 @@ public class ApiUserController {
         apiUserService.createUser(userDto);
 
         return ResponseEntity.ok("ok");
+
+        //test
     }
 
 
