@@ -8,12 +8,16 @@ import lombok.Setter;
 @Setter
 public class UserDto {
 
+    private String userName;
+
+    private String userMbti;
+
     private String userImageUrl;
 
     private String userIntroduce;
 
     public User toEntity() {
-        return new User(userImageUrl, userIntroduce);
+        return new User(userName, userMbti, userImageUrl, userIntroduce);
     }
 
 }

@@ -12,7 +12,7 @@ public class UserRepository {
     public void saveUser(User user) {
         Firestore firestore = FirestoreClient.getFirestore();
 
-        firestore.collection(COLLECTION_NAME).document("11").set(user);
+        firestore.collection(COLLECTION_NAME).document(user.getUserName()).set(user);
 
     }
 }
