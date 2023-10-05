@@ -14,4 +14,8 @@ public class UserService {
     public void saveUser(User user) {
         userRepository.saveUser(user);
     }
+
+    public void deleteUser( String userName ) throws Exception {
+        userRepository.deleteUser( userName );
+    }
 }
