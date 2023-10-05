@@ -25,9 +25,7 @@ public class ApiUserService {
     }
 
     public List<UserDto> getAllUsers() throws ExecutionException, InterruptedException {
-        return userService.findAllUsers().stream()
-                .map(o -> new UserDto(o.getUserName(),o.getUserMbti(),o.getUserImageUrl(),o.getUserIntroduce()))
-                .collect(Collectors.toList());
+        return userService.findAllUsers().stream().map(UserDto::new).collect(Collectors.toList());
     }
 
     public void deleteUser( String userName ) throws InterruptedException, ExecutionException, TimeoutException {
