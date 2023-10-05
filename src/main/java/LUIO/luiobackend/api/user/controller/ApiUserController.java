@@ -41,8 +41,8 @@ public class ApiUserController {
     }
 
     @PatchMapping("/user")
-    public ResponseEntity<?> editUser( @RequestBody UserDto userDto ) {
-        apiUserService.createUser( userDto );
+    public ResponseEntity<?> editUser( @RequestBody UserDto userDto ) throws ExecutionException, InterruptedException {
+        apiUserService.editUser( userDto );
 
         String response = "{'ret':'ok'}";
         return ResponseEntity.ok(response);
