@@ -2,14 +2,12 @@ package LUIO.luiobackend.api.user.controller;
 
 import LUIO.luiobackend.api.user.dto.UserDto;
 import LUIO.luiobackend.api.user.service.ApiUserService;
-import LUIO.luiobackend.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,6 +23,10 @@ public class ApiUserController {
         return ResponseEntity.ok("ok");
     }
 
+    @GetMapping("/users")
+    public ResponseEntity<List<UserDto>> getAllUsers() throws ExecutionException, InterruptedException {
+        List<UserDto> userDtoList = apiUserService.getAllUsers();
 
-
+        return ResponseEntity.ok(userDtoList);
+    }
 }
