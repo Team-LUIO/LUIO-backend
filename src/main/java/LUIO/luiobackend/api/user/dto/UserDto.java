@@ -24,4 +24,11 @@ public class UserDto {
         return new User(userName, userMbti, userImageUrl, userIntroduce);
     }
 
+    public UserDto(User user) {
+        userName = user.getUserName();
+        userMbti = user.getUserMbti();
+        userImageUrl = user.getUserImageUrl();
+        userIntroduce = user.getUserIntroduce();
+    }
+
 }

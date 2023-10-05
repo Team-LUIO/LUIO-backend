@@ -32,4 +32,9 @@ public class ApiUserService {
     public void deleteUser( String userName ) throws Exception {
         userService.deleteUser( userName );
     }
+
+    public UserDto getUserDtoByUserName(String userName) throws ExecutionException, InterruptedException {
+        User user = userService.findByUsername(userName);
+        return new UserDto(user);
+    }
 }

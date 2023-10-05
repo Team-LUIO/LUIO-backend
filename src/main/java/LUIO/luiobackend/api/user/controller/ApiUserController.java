@@ -24,6 +24,14 @@ public class ApiUserController {
         return ResponseEntity.ok("ok");
     }
 
+    @GetMapping("/user/{userName}")
+    public ResponseEntity<UserDto> getUserDtoByUserName(@PathVariable String userName)
+            throws ExecutionException, InterruptedException {
+        UserDto userDto = apiUserService.getUserDtoByUserName(userName);
+
+        return ResponseEntity.ok(userDto);
+    }
+
     @GetMapping("/users")
     public ResponseEntity<List<UserDto>> getAllUsers() throws ExecutionException, InterruptedException {
         List<UserDto> userDtoList = apiUserService.getAllUsers();
