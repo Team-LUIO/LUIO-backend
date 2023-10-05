@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +23,7 @@ public class UserService {
         return userRepository.findAllUsers();
     }
 
-    public void deleteUser( String userName ) throws Exception {
+    public void deleteUser( String userName ) throws InterruptedException, ExecutionException, TimeoutException {
         userRepository.deleteUser( userName );
     }
 

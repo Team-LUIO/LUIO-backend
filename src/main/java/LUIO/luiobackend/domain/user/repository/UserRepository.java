@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 @Repository
 public class UserRepository {
@@ -39,7 +40,7 @@ public class UserRepository {
         return userList;
     }
 
-    public void deleteUser( String userName ) throws Exception {
+    public void deleteUser( String userName ) throws InterruptedException, ExecutionException, TimeoutException {
         Firestore firestore = FirestoreClient.getFirestore();
         firestore.collection(COLLECTION_NAME).document(userName).delete().get(2, TimeUnit.SECONDS);
     }
@@ -47,8 +48,12 @@ public class UserRepository {
     public User findByUserName(String userName) throws ExecutionException, InterruptedException {
         Firestore firestore = FirestoreClient.getFirestore();
         DocumentSnapshot documentSnapshot = firestore.collection(COLLECTION_NAME).document(userName).get().get();
-        return new User(documentSnapshot.getId(), (String)documentSnapshot.get("userMbti")
-                ,(String)documentSnapshot.get("userImageUrl"), (String)documentSnapshot.get("userIntroduce") );
-
+        if(documentSnapshot.exists()) {
+            return new User(documentSnapshot.getId(), (String)documentSnapshot.get("userMbti")
+                    ,(String)documentSnapshot.get("userImageUrl"), (String)documentSnapshot.get("userIntroduce") );
+        }
+        else {
+            throw new IllegalArgumentException("잘못된 이름이 입력되었습니다.");
+        }
     }
 }
