@@ -18,4 +18,8 @@ public class ApiUserService {
         userService.saveUser(user);
 
     }
+
+    public void deleteUser( String userName ) throws Exception {
+        userService.deleteUser( userName );
+    }
 }

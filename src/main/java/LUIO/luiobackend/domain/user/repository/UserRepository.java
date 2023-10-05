@@ -5,6 +5,9 @@ import com.google.cloud.firestore.Firestore;
 import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Repository;
 
+import java.util.concurrent.TimeUnit;
+
+
 @Repository
 public class UserRepository {
     private static final String COLLECTION_NAME = "users";
@@ -15,4 +18,12 @@ public class UserRepository {
         firestore.collection(COLLECTION_NAME).document(user.getUserName()).set(user);
 
     }
+
+	public void deleteUser( String userName ) throws Exception {
+		Firestore firestore = FirestoreClient.getFirestore();
+		var Result = firestore.collection(COLLECTION_NAME).document(userName).delete().get(2, TimeUnit.SECONDS);
+		if( Result == null ) {
+			throw new Exception( "deleteUser error" );
+		}
+	}
 }
