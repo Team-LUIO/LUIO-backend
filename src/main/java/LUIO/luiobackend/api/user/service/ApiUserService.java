@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,7 +30,8 @@ public class ApiUserService {
                 .collect(Collectors.toList());
     }
 
-    public void deleteUser( String userName ) throws Exception {
+    public void deleteUser( String userName ) throws InterruptedException, ExecutionException, TimeoutException {
+        userService.findByUsername( userName );
         userService.deleteUser( userName );
     }
 

@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
@@ -48,27 +49,11 @@ public class ApiUserController {
     }
 
     @DeleteMapping("/user/{userName}")
-    public ResponseEntity<?> deleteUser( @PathVariable( "userName" ) String userName ) {
-        String result = "unknown error";
-
-        try {
-            apiUserService.deleteUser( userName );
-            result = "ok";
-        }
-        catch( ExecutionException ex ) {
-            result = "회원 정보 삭제 중 오류가 발생하였습니다.";
-        }
-        catch( TimeoutException ex ) {
-            result = "회원 정보 삭제 중 Timeout 발생하였습니다.";
-        }
-        catch( Exception ex ) {
-            result = "회원 정보 삭제 중 알 수 없는 오류가 발생하였습니다. " + ex.getMessage();
-        }
+    public ResponseEntity<?> deleteUser( @PathVariable( "userName" ) String userName ) throws ExecutionException, InterruptedException, TimeoutException {
+        apiUserService.deleteUser( userName );
+        String result = "ok";
 
         String response = "{'ret':'" + result + "'}";
         return ResponseEntity.ok(response);
     }
-
-
-
 }
