@@ -28,4 +28,8 @@ public class ApiUserService {
                 .map(o -> new UserDto(o.getUserName(),o.getUserMbti(),o.getUserImageUrl(),o.getUserIntroduce()))
                 .collect(Collectors.toList());
     }
+
+    public void deleteUser( String userName ) throws Exception {
+        userService.deleteUser( userName );
+    }
 }

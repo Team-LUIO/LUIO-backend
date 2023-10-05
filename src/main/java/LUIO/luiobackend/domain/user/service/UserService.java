@@ -21,4 +21,8 @@ public class UserService {
     public List<User> findAllUsers() throws ExecutionException, InterruptedException {
         return userRepository.findAllUsers();
     }
+
+    public void deleteUser( String userName ) throws Exception {
+        userRepository.deleteUser( userName );
+    }
 }

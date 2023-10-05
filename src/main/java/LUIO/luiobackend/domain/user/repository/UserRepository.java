@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 @Repository
 public class UserRepository {
@@ -18,6 +19,7 @@ public class UserRepository {
 
     public void saveUser(User user) {
         Firestore firestore = FirestoreClient.getFirestore();
+
         firestore.collection(COLLECTION_NAME).document(user.getUserName()).set(user);
 
     }
@@ -34,5 +36,10 @@ public class UserRepository {
         }
 
         return userList;
+    }
+
+    public void deleteUser( String userName ) throws Exception {
+        Firestore firestore = FirestoreClient.getFirestore();
+        firestore.collection(COLLECTION_NAME).document(userName).delete().get(2, TimeUnit.SECONDS);
     }
 }
