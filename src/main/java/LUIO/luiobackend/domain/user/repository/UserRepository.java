@@ -21,9 +21,6 @@ public class UserRepository {
 
 	public void deleteUser( String userName ) throws Exception {
 		Firestore firestore = FirestoreClient.getFirestore();
-		var Result = firestore.collection(COLLECTION_NAME).document(userName).delete().get(2, TimeUnit.SECONDS);
-		if( Result == null ) {
-			throw new Exception( "deleteUser error" );
-		}
+		firestore.collection(COLLECTION_NAME).document(userName).delete().get(2, TimeUnit.SECONDS);
 	}
 }

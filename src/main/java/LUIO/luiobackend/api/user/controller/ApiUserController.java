@@ -9,6 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
@@ -25,28 +28,28 @@ public class ApiUserController {
 
     @PatchMapping("/user")
     public ResponseEntity<?> editUser( @RequestBody UserDto userDto ) {
-        String result = "unknown error";
-        try {
-            apiUserService.createUser( userDto );
-            result = "ok";
-        }
-        catch( Exception ex ) {
-            result = ex.getMessage();
-        }
+        apiUserService.createUser( userDto );
 
-        String response = "{'ret':'" + result + "'}";
+        String response = "{'ret':'ok'}";
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/user/{userName}")
     public ResponseEntity<?> deleteUser( @PathVariable( "userName" ) String userName ) {
         String result = "unknown error";
+
         try {
             apiUserService.deleteUser( userName );
             result = "ok";
         }
+        catch( ExecutionException ex ) {
+            result = "회원 정보 삭제 중 오류가 발생하였습니다.";
+        }
+        catch( TimeoutException ex ) {
+            result = "회원 정보 삭제 중 Timeout 발생하였습니다.";
+        }
         catch( Exception ex ) {
-            result = ex.getMessage();
+            result = "회원 정보 삭제 중 알 수 없는 오류가 발생하였습니다. " + ex.getMessage();
         }
 
         String response = "{'ret':'" + result + "'}";
