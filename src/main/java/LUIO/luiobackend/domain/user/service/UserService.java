@@ -25,4 +25,8 @@ public class UserService {
     public void deleteUser( String userName ) throws Exception {
         userRepository.deleteUser( userName );
     }
+
+    public User findByUsername(String userName) throws ExecutionException, InterruptedException {
+        return userRepository.findByUserName(userName);
+    }
 }
