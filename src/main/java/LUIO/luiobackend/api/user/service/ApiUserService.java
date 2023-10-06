@@ -38,9 +38,9 @@ public class ApiUserService {
         return new UserDto(user);
     }
 
-    public void editUser( UserDto userDto ) throws ExecutionException, InterruptedException {
+    public void editUser( String userNameFromPath, UserDto userDto ) throws ExecutionException, InterruptedException {
         User user = userDto.toEntity();
-        userService.findByUsername( user.getUserName() );
+        userService.findByUsername( userNameFromPath );
         userService.saveUser( user );
     }
 }
