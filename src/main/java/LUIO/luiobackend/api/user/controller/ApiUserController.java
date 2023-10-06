@@ -42,15 +42,13 @@ public class ApiUserController {
 
     @PatchMapping("/user/{userName}")
     public ResponseEntity<?> editUser( @PathVariable String userName, @RequestBody UserDto userDto ) throws ExecutionException, InterruptedException, TimeoutException {
-        apiUserService.editUser( userName, userDto );
-
-        // path로 받은 userName과, userDto의 userName이 다를경우, 기존 내용은 지워야 한다.
         if(!Objects.equals(userName, userDto.getUserName())) {
-            apiUserService.deleteUser( userName );
+            return ResponseEntity.ok("{'ret':'이름은 변경 할 수 없습니다.'}");
         }
 
-        String response = "{'ret':'ok'}";
-        return ResponseEntity.ok(response);
+        apiUserService.editUser( userName, userDto );
+
+        return ResponseEntity.ok("{'ret':'ok'}");
     }
 
     @DeleteMapping("/user/{userName}")
