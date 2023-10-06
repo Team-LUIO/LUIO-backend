@@ -14,6 +14,7 @@ import java.util.concurrent.TimeoutException;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
+@CrossOrigin(origins = "*")
 public class ApiUserController {
 
     private final ApiUserService apiUserService;
