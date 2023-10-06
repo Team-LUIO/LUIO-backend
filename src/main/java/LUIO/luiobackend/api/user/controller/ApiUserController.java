@@ -40,20 +40,21 @@ public class ApiUserController {
         return ResponseEntity.ok(userDtoList);
     }
 
-    @PatchMapping("/user")
-    public ResponseEntity<?> editUser( @RequestBody UserDto userDto ) throws ExecutionException, InterruptedException {
-        apiUserService.editUser( userDto );
+    @PatchMapping("/user/{userName}")
+    public ResponseEntity<?> editUser( @PathVariable String userName, @RequestBody UserDto userDto ) throws ExecutionException, InterruptedException, TimeoutException {
+        if(!Objects.equals(userName, userDto.getUserName())) {
+            return ResponseEntity.status(400).body("{'ret':'이름은 변경 할 수 없습니다.'}");
+        }
 
-        String response = "{'ret':'ok'}";
-        return ResponseEntity.ok(response);
+        apiUserService.editUser( userName, userDto );
+
+        return ResponseEntity.ok("{'ret':'ok'}");
     }
 
     @DeleteMapping("/user/{userName}")
-    public ResponseEntity<?> deleteUser( @PathVariable( "userName" ) String userName ) throws ExecutionException, InterruptedException, TimeoutException {
+    public ResponseEntity<?> deleteUser( @PathVariable String userName ) throws ExecutionException, InterruptedException, TimeoutException {
         apiUserService.deleteUser( userName );
-        String result = "ok";
 
-        String response = "{'ret':'" + result + "'}";
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok("{'ret':'ok'}");
     }
 }
