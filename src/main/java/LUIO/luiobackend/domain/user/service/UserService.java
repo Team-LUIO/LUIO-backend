@@ -15,8 +15,8 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public void saveUser(User user) {
-        userRepository.saveUser(user);
+    public void saveUser( User user ) {
+        userRepository.saveUser( user );
     }
 
     public List<User> findAllUsers() throws ExecutionException, InterruptedException {
@@ -27,7 +27,7 @@ public class UserService {
         userRepository.deleteUser( userName );
     }
 
-    public User findByUsername(String userName) throws ExecutionException, InterruptedException {
-        return userRepository.findByUserName(userName);
+    public User findByUsername( String userName ) throws ExecutionException, InterruptedException {
+        return userRepository.findByUserName( userName );
     }
 }

@@ -19,20 +19,20 @@ import java.util.concurrent.TimeoutException;
 public class UserRepository {
     private static final String COLLECTION_NAME = "users";
 
-    public void saveUser(User user) {
+    public void saveUser( User user ) {
         Firestore firestore = FirestoreClient.getFirestore();
 
-        firestore.collection(COLLECTION_NAME).document(user.getUserName()).set(user);
+        firestore.collection( COLLECTION_NAME ).document( user.getUserName() ).set( user );
 
     }
 
     public List<User> findAllUsers() throws ExecutionException, InterruptedException {
         Firestore firestore = FirestoreClient.getFirestore();
-        ApiFuture<QuerySnapshot> future = firestore.collection(COLLECTION_NAME).get();
+        ApiFuture<QuerySnapshot> future = firestore.collection( COLLECTION_NAME ).get();
         List<QueryDocumentSnapshot> documents = future.get().getDocuments();
 
         List<User> userList = new ArrayList<>();
-        for (QueryDocumentSnapshot document : documents) {
+        for ( QueryDocumentSnapshot document : documents ) {
             userList.add(new User(document.getId(),(String)document.get("userMbti")
                     ,(String)document.get("userImageUrl"), (String)document.get("userIntroduce")));
         }
@@ -42,18 +42,18 @@ public class UserRepository {
 
     public void deleteUser( String userName ) throws InterruptedException, ExecutionException, TimeoutException {
         Firestore firestore = FirestoreClient.getFirestore();
-        firestore.collection(COLLECTION_NAME).document(userName).delete().get(2, TimeUnit.SECONDS);
+        firestore.collection( COLLECTION_NAME ).document( userName ).delete().get(2, TimeUnit.SECONDS);
     }
 
     public User findByUserName(String userName) throws ExecutionException, InterruptedException {
         Firestore firestore = FirestoreClient.getFirestore();
-        DocumentSnapshot documentSnapshot = firestore.collection(COLLECTION_NAME).document(userName).get().get();
+        DocumentSnapshot documentSnapshot = firestore.collection( COLLECTION_NAME ).document( userName ).get().get();
         if(documentSnapshot.exists()) {
             return new User(documentSnapshot.getId(), (String)documentSnapshot.get("userMbti")
                     ,(String)documentSnapshot.get("userImageUrl"), (String)documentSnapshot.get("userIntroduce") );
         }
         else {
-            throw new IllegalArgumentException("잘못된 이름이 입력되었습니다.");
+            throw new IllegalArgumentException( "잘못된 이름이 입력되었습니다." );
         }
     }
 }
