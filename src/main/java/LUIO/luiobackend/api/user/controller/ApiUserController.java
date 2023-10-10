@@ -20,42 +20,42 @@ public class ApiUserController {
     private final ApiUserService apiUserService;
 
     @PostMapping("/user")
-    public ResponseEntity<?> createUser(@RequestBody UserDto userDto) {
-        apiUserService.createUser(userDto);
+    public ResponseEntity<?> createUser( @RequestBody UserDto userDto ) {
+        apiUserService.createUser( userDto );
 
-        return ResponseEntity.ok("ok");
+        return ResponseEntity.ok( "{'ret':'ok'}" );
     }
 
     @GetMapping("/user/{userName}")
-    public ResponseEntity<UserDto> getUserDtoByUserName(@PathVariable String userName)
+    public ResponseEntity<UserDto> getUserDtoByUserName( @PathVariable String userName )
             throws ExecutionException, InterruptedException {
-        UserDto userDto = apiUserService.getUserDtoByUserName(userName);
+        UserDto userDto = apiUserService.getUserDtoByUserName( userName );
 
-        return ResponseEntity.ok(userDto);
+        return ResponseEntity.ok( userDto );
     }
 
     @GetMapping("/users")
     public ResponseEntity<List<UserDto>> getAllUsers() throws ExecutionException, InterruptedException {
         List<UserDto> userDtoList = apiUserService.getAllUsers();
 
-        return ResponseEntity.ok(userDtoList);
+        return ResponseEntity.ok( userDtoList );
     }
 
     @PatchMapping("/user/{userName}")
     public ResponseEntity<?> editUser( @PathVariable String userName, @RequestBody UserDto userDto ) throws ExecutionException, InterruptedException, TimeoutException {
-        if(!Objects.equals(userName, userDto.getUserName())) {
-            return ResponseEntity.status(400).body("{'ret':'이름은 변경 할 수 없습니다.'}");
+        if(!Objects.equals( userName, userDto.getUserName() )) {
+            return ResponseEntity.status( 400 ).body( "{'ret':'이름은 변경 할 수 없습니다.'}" );
         }
 
         apiUserService.editUser( userName, userDto );
 
-        return ResponseEntity.ok("{'ret':'ok'}");
+        return ResponseEntity.ok( "{'ret':'ok'}" );
     }
 
     @DeleteMapping("/user/{userName}")
     public ResponseEntity<?> deleteUser( @PathVariable String userName ) throws ExecutionException, InterruptedException, TimeoutException {
         apiUserService.deleteUser( userName );
 
-        return ResponseEntity.ok("{'ret':'ok'}");
+        return ResponseEntity.ok( "{'ret':'ok'}" );
     }
 }

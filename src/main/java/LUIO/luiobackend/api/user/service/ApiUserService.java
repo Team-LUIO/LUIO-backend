@@ -17,15 +17,15 @@ public class ApiUserService {
 
     private final UserService userService;
 
-    public void createUser(UserDto userDto) {
+    public void createUser( UserDto userDto ) {
         User user = userDto.toEntity();
 
-        userService.saveUser(user);
+        userService.saveUser( user );
 
     }
 
     public List<UserDto> getAllUsers() throws ExecutionException, InterruptedException {
-        return userService.findAllUsers().stream().map(UserDto::new).collect(Collectors.toList());
+        return userService.findAllUsers().stream().map( UserDto::new ).collect( Collectors.toList() );
     }
 
     public void deleteUser( String userName ) throws InterruptedException, ExecutionException, TimeoutException {
@@ -33,9 +33,9 @@ public class ApiUserService {
         userService.deleteUser( userName );
     }
 
-    public UserDto getUserDtoByUserName(String userName) throws ExecutionException, InterruptedException {
-        User user = userService.findByUsername(userName);
-        return new UserDto(user);
+    public UserDto getUserDtoByUserName( String userName ) throws ExecutionException, InterruptedException {
+        User user = userService.findByUsername( userName );
+        return new UserDto( user );
     }
 
     public void editUser( String userNameFromPath, UserDto userDto ) throws ExecutionException, InterruptedException {
